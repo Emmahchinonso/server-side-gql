@@ -23,12 +23,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 const server = new ApolloServer({
-  schema: addMocksToSchema({
-    schema: makeExecutableSchema({ typeDefs }),
-  }),
+  typeDefs,
+  resolvers,
   plugins,
 })
-
+console.log('start server ----')
 const handler = startServerAndCreateNextHandler<NextRequest>(server, {})
 
 export async function GET(request: NextRequest) {
@@ -36,5 +35,6 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  console.log('post request created ----')
   return handler(request)
-} 
+}
